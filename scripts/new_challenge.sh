@@ -18,7 +18,9 @@ if [ $# -lt 3 ]; then
 fi
 
 # pad a number to two digits (1 -> 01)
-pad2() { printf "%02d" "$1"; }
+# Use base-10 forced arithmetic so values like '08' don't get treated as octal.
+# $((10#$1)) forces decimal interpretation even when input has a leading zero.
+pad2() { printf "%02d" "$((10#$1))"; }
 
 # sanitize a string for use in directory names (lowercase, non-alnum -> -, trim -)
 sanitize_dir() {
