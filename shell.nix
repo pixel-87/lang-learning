@@ -6,6 +6,9 @@
   go,
   gopls,
   goreleaser,
+  gcc,
+  gnumake,
+  gdb,
 }:
 let
   defaultPackage = callPackage ./default.nix { };
@@ -17,5 +20,8 @@ mkShellNoCC {
     go
     gopls
     goreleaser
+    gcc
+    gnumake
+    gdb
   ];
 }

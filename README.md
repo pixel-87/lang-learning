@@ -1,62 +1,52 @@
-# Learning Go - Boot.dev Local Challenges
+# Language Learning - Boot.dev Challenges
 
-This repository contains local implementations of Boot.dev Go challenges. Use the provided scripts to set up new challenges and run tests.
+This repository contains local implementations of Boot.dev challenges for Go and C.
+
+## Repository Structure
+
+- `go/`: Contains Golang challenges, scripts, and module files.
+- `c/`: Contains C challenges and Makefiles.
+- `scripts/`: Unified scripts for managing challenges.
 
 ## Setting Up a New Challenge
 
-Use the `scripts/new_challenge.sh` script to create a new challenge directory with boilerplate code and tests.
+Use the `scripts/new.sh` script to create a new challenge directory with boilerplate code.
 
 ### Usage
 
-```
-./scripts/new_challenge.sh <chapter> <NN> "Challenge Title" ["Chapter Title"] [--no-code]
+```bash
+./scripts/new.sh <lang> <chapter> <NN> "Challenge Title" ["Chapter Title"] [--no-code]
 ```
 
-- `<chapter>`: Chapter number (e.g., 04 for structs).
-- `<NN>`: Challenge number within the chapter (zero-padded, e.g., 01).
-- `"Challenge Title"`: Human-readable title for the challenge.
-- `"Chapter Title"`: Optional human-readable title for the chapter (e.g., "Structs").
-- `--no-code`: Optional flag to skip creating Go code and test files (for multiple-choice questions).
+- `<lang>`: Either `go` or `c`.
+- `<chapter>`: Chapter number (e.g., 04).
+- `<NN>`: Challenge number (zero-padded).
+- `"Challenge Title"`: Human-readable title.
+- `"Chapter Title"`: Optional human-readable chapter title.
+- `--no-code`: Skip creating source files.
 
 ### Examples
 
-- Create a code challenge: `./scripts/new_challenge.sh 04 01 "Structs in Go" "Structs"`
-- Create a no-code challenge: `./scripts/new_challenge.sh 04 02 "Multiple Choice Question" --no-code`
+- **Go**: `./scripts/new.sh go 04 01 "Structs in Go" "Structs"`
+- **C**: `./scripts/new.sh c 01 01 "Hello World" "Basics"`
 
-This creates a directory like `challenges/04-structs/01-structs-in-go/` with:
+## Running Challenges
 
-- `structs_in_go.go`: Boilerplate Go code.
-- `structs_in_go_test.go`: Placeholder tests.
-- `README.md`: Challenge description (edit this with instructions from Boot.dev).
-
-## Running Tests
-
-To run tests for a specific challenge:
-
-```
-go test ./challenges/<chapter>/<challenge> -v
+### Go
+To run tests for a Go challenge:
+```bash
+go test ./go/challenges/<chapter>/<challenge> -v
 ```
 
-For example:
-
-```
-go test ./challenges/04-structs/01-structs-in-go -v
-```
-
-- `-v`: Verbose output to see detailed test results.
-- Replace `<chapter>` and `<challenge>` with the actual directory names.
-
-For all tests in a chapter:
-
-```
-go test ./challenges/<chapter>/... -v
+### C
+To run a C challenge:
+```bash
+cd c/challenges/<chapter>/<challenge>
+make run
 ```
 
-## General Go Commands
+## Nix Environment
 
-- Build: `go build ./path/to/file.go`
-- Run: `go run ./path/to/file.go`
-- Format: `go fmt ./path/to/file.go`
-- Mod tidy: `go mod tidy` (to clean up dependencies)
-
-Edit the generated files with your solutions, then run tests to verify!
+This project uses Nix for a reproducible development environment.
+- `nix develop`: Enter the shell with all tools (Go, GCC, Make, etc.)
+- `nix build`: Build the Go project.
