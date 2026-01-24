@@ -62,8 +62,20 @@ if [ -z "$challenge_dir_slug" ]; then
   exit 1
 fi
 
+# Determine the root of the challenges directory
+if [ -d "challenges" ]; then
+  challenges_root="challenges"
+elif [ -d "go/challenges" ]; then
+  challenges_root="go/challenges"
+elif [ -d "learn-go/challenges" ]; then
+  challenges_root="learn-go/challenges"
+else
+  # Default fallback, though this might create the directory in the wrong place if not careful
+  challenges_root="challenges"
+fi
+
 slug="${challenge_num}-${challenge_dir_slug}"    # e.g. "01-message"
-base_dir="go/challenges/${chapter_dirname}/${slug}" # e.g. "go/challenges/04-structs/01-message"
+base_dir="${challenges_root}/${chapter_dirname}/${slug}" # e.g. "challenges/04-structs/01-message"
 
 # filename base uses underscores (hello-world -> hello_world)
 file_base="${challenge_dir_slug//-/_}"
@@ -82,7 +94,7 @@ mkdir -p "$base_dir"
 
 # If a chapter title was provided, create a chapter README with the human title
 if [ -n "$chapter_title" ]; then
-  chapter_readme="go/challenges/${chapter_dirname}/README.md"
+  chapter_readme="${challenges_root}/${chapter_dirname}/README.md"
   if [ ! -e "$chapter_readme" ]; then
     cat > "$chapter_readme" <<EOF
 # $chapter_title
@@ -136,7 +148,7 @@ if [ "$no_code" = false ]; then
 fi
 echo " - $readme_file"
 if [ -n "$chapter_title" ]; then
-  echo "Chapter README: go/challenges/${chapter_dirname}/README.md"
+  echo "Chapter README: ${challenges_root}/${chapter_dirname}/README.md"
 fi
 if [ "$no_code" = false ]; then
   echo "Run tests: go test ./$base_dir -v"
