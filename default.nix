@@ -6,7 +6,7 @@ buildGoModule {
   pname = "Learning golang from boot.dev guest mode";
   inherit version;
 
-  src = ./go;
+  src = ./learn-go;
 
   vendorHash = null;
 

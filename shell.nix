@@ -9,6 +9,7 @@
   gcc,
   gnumake,
   gdb,
+  python3,
 }:
 let
   defaultPackage = callPackage ./default.nix { };
@@ -23,5 +24,6 @@ mkShellNoCC {
     gcc
     gnumake
     gdb
+    python3
   ];
 }

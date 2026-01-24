@@ -1,52 +1,65 @@
-# Language Learning - Boot.dev Challenges
+# Boot.dev - Learning Mono-repo
 
-This repository contains local implementations of Boot.dev challenges for Go and C.
+This repository contains local implementations of Boot.dev challenges for various courses including Python, Go, and C.
 
 ## Repository Structure
 
-- `go/`: Contains Golang challenges, scripts, and module files.
-- `c/`: Contains C challenges and Makefiles.
+- `learn-go/`: "Learn Go" course challenges and module files.
+- `learn-c/`: "Learn C" course challenges.
+- `dsa-python/`: "DSA in Python" course challenges.
 - `scripts/`: Unified scripts for managing challenges.
 
-## Setting Up a New Challenge
+## Setting Up a New Lesson
 
-Use the `scripts/new.sh` script to create a new challenge directory with boilerplate code.
+Use the `scripts/generate.sh` script to create a new lesson directory with boilerplate code.
 
 ### Usage
 
 ```bash
-./scripts/new.sh <lang> <chapter> <NN> "Challenge Title" ["Chapter Title"] [--no-code]
+./scripts/generate.sh <course_slug> <chapter> <lesson> "Lesson Title" ["Chapter Title"] [--lang <lang>] [--no-code]
 ```
 
-- `<lang>`: Either `go` or `c`.
-- `<chapter>`: Chapter number (e.g., 04).
-- `<NN>`: Challenge number (zero-padded).
-- `"Challenge Title"`: Human-readable title.
+- `course_slug`: The directory name for the course (e.g., `dsa-python`, `learn-go`).
+- `<chapter>`: Chapter number.
+- `<lesson>`: Lesson number.
+- `"Lesson Title"`: Human-readable title.
 - `"Chapter Title"`: Optional human-readable chapter title.
-- `--no-code`: Skip creating source files.
+- `--lang <lang>`: Force language (python, go, c, js). If not provided, inferred from `course_slug`.
 
 ### Examples
 
-- **Go**: `./scripts/new.sh go 04 01 "Structs in Go" "Structs"`
-- **C**: `./scripts/new.sh c 01 01 "Hello World" "Basics"`
+- **DSA in Python**:
+  ```bash
+  ./scripts/generate.sh dsa-python 1 1 "Stack Implementation" "Data Structures"
+  ```
+- **Go**:
+  ```bash
+  ./scripts/generate.sh learn-go 4 1 "Structs" --lang go
+  ```
 
 ## Running Challenges
 
-### Go
-To run tests for a Go challenge:
+### Python
+To run a Python lesson:
 ```bash
-go test ./go/challenges/<chapter>/<challenge> -v
+python3 dsa-python/challenges/<chapter>-<slug>/<lesson>-<slug>/main.py
+```
+
+### Go
+To run a Go lesson:
+```bash
+go run ./learn-go/challenges/<chapter>/<lesson>
 ```
 
 ### C
-To run a C challenge:
+To run a C lesson:
 ```bash
-cd c/challenges/<chapter>/<challenge>
+cd learn-c/challenges/<chapter>/<lesson>
 make run
 ```
 
 ## Nix Environment
 
 This project uses Nix for a reproducible development environment.
-- `nix develop`: Enter the shell with all tools (Go, GCC, Make, etc.)
+- `nix develop`: Enter the shell with all tools (Go, GCC, Make, Python, etc.)
 - `nix build`: Build the Go project.
