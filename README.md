@@ -9,32 +9,40 @@ This repository contains local implementations of Boot.dev challenges for variou
 - `dsa-python/`: "DSA in Python" course challenges.
 - `scripts/`: Unified scripts for managing challenges.
 
-## Setting Up a New Lesson
+## Creating a New Challenge
 
-Use the `scripts/generate.sh` script to create a new lesson directory with boilerplate code.
+Use the `scripts/new-challenge` script to scaffold a new challenge directory with boilerplate code.
 
 ### Usage
 
 ```bash
-./scripts/generate.sh <course_slug> <chapter> <lesson> "Lesson Title" ["Chapter Title"] [--lang <lang>] [--no-code]
+./scripts/new-challenge [<lang>] <chapter> <NN> "Challenge Title" ["Chapter Title"] [--no-code]
 ```
 
-- `course_slug`: The directory name for the course (e.g., `dsa-python`, `learn-go`).
+- `<lang>`: Optional language (go, learn-go, c). Defaults to go.
 - `<chapter>`: Chapter number.
-- `<lesson>`: Lesson number.
-- `"Lesson Title"`: Human-readable title.
+- `<NN>`: Challenge number.
+- `"Challenge Title"`: Human-readable title.
 - `"Chapter Title"`: Optional human-readable chapter title.
-- `--lang <lang>`: Force language (python, go, c, js). If not provided, inferred from `course_slug`.
+- `--no-code`: Skip boilerplate code/test file generation.
 
 ### Examples
 
-- **DSA in Python**:
+- **Go challenge** (implicit language):
   ```bash
-  ./scripts/generate.sh dsa-python 1 1 "Stack Implementation" "Data Structures"
+  ./scripts/new-challenge 04 01 "Message" "Structs"
   ```
-- **Go**:
+- **Go challenge** (explicit language):
   ```bash
-  ./scripts/generate.sh learn-go 4 1 "Structs" --lang go
+  ./scripts/new-challenge go 04 01 "Message" "Structs"
+  ```
+- **C challenge**:
+  ```bash
+  ./scripts/new-challenge c 01 01 "Hello World" "Basics"
+  ```
+- **Quiz without code**:
+  ```bash
+  ./scripts/new-challenge 05 02 "Quiz" "Interfaces" --no-code
   ```
 
 ## Running Challenges
